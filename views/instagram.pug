@@ -1,0 +1,23 @@
+doctype 5
+html
+
+	head
+		link(
+			rel='stylesheet', 
+			href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+		)
+
+	body
+		
+		h1 Instagram 
+
+		hr
+
+
+		div(class='row')
+
+			each node in nodes
+
+				div(class='col-xs-6 col-md-4')
+					li
+						img(src=node.thumbnail_src, style='max-width: 100%')
