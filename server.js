@@ -70,7 +70,7 @@ app.post('/mailchimp', async(req, res, next) => {
         }
 
         const {name, email} = req.body
-        await MailchimpModel.subscribeList(config.MAILCHIMP_KEY_LIST_ID, name, email)
+        await MailchimpModel.subscribeList(config.MAILCHIMP_LIST_ID, name, email)
     } catch (err) {
         response.message = err.title || err.message
         response.success = false

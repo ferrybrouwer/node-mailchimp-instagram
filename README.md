@@ -5,4 +5,4 @@ Run node server with 2 required environment variables:
 
 Example:
 
-    $ MAILCHIMP_API_KEY=xxxxxxxxxxxxx MAILCHIMP_KEY_LIST_ID=xxxxx node .
+    $ MAILCHIMP_API_KEY=xxxxxxxxxxxxx MAILCHIMP_LIST_ID=xxxxx node .
