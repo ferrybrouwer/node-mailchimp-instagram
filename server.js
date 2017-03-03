@@ -52,31 +52,35 @@ app.post('/mailchimp', async(req, res, next) => {
     }
 
     // validate req.body
+    req.sanitize('name').trim()
+    req.sanitize('email').trim()
     req.checkBody('name', 'Name can not be empty').notEmpty();
     req.checkBody('email', 'Email is not valid').isEmail()
     const result = await req.getValidationResult()
 
     // default response object
+    const {name  = '', email = ''} = req.body
     let response = {
         success: true,
         message: null,
-        errors:  []
+        errors:  [],
+        body:    {name, email}
     }
 
     try {
         if (!result.isEmpty()) {
-            response.errors = result.array()
+            response.params = result.array().map((obj) => obj.param)
             throw new Error(`Invalid params`, 402)
         }
 
-        const {name, email} = req.body
         await MailchimpModel.subscribeList(config.MAILCHIMP_LIST_ID, name, email)
+        response.body.name = response.body.email = ''
     } catch (err) {
         response.message = err.title || err.message
         response.success = false
     }
 
-    send(response)
+    send(response, response.success === false ? 402 : 200)
 })
 
 // 404 requests

@@ -1,24 +1,34 @@
 doctype 5
 html
 
-	head
-		link(
-			rel='stylesheet', 
-			href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-		)
+    head
+        link(
+            rel='stylesheet',
+            href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+        )
 
-	body
+    body(class='container-fluid')
 
-		h1 Mailchimp
+        h1 Mailchimp
 
-		hr
+        hr
 
-		form(action='/mailchimp', method='post')
+        form(action='/mailchimp', method='post')
 
-			legend Subscribe newsletter
+            legend Subscribe newsletter
+			
+            if typeof success !== 'undefined'
+                if success === false
+                    div(class='alert alert-danger')= message
+    
+                if success === true
+                    div(class='alert alert-success') Successfully subscribed
+                
+            div(class='row')
+                div(class={'has-error': typeof params !== 'undefined' && params.indexOf('name') !== -1, 'form-group': true, 'col-xs-6': true})
+                    input(name='name', placeholder='Your name', type='text', class='form-control', value=typeof body !== 'undefined' ? body.name : '')
+    
+                div(class={'has-error': typeof params !== 'undefined' && params.indexOf('email') !== -1, 'form-group': true, 'col-xs-6': true})
+                    input(name='email', placeholder='Your email', type='text', class='form-control', value=typeof body !== 'undefined' ? body.email : '')
 
-			input(name='firstname', placeholder='Your firstname', type='text')
-
-			input(name='lastname', placeholder='Your lastname', type='text')
-
-			button(class='btn btn-default') Subscribe
+            button(class='btn btn-primary') Subscribe to Mailchimp
