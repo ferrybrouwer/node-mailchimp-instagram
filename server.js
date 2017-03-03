@@ -23,7 +23,6 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 // root
 app.get('/', (req, res) => {
-    const Component = require('./Component.jsx')
     res.render('index')
 })
 
